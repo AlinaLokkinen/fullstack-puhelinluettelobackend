@@ -10,9 +10,9 @@ let logger = morgan('tiny' )
 app.use(logger)
 
 let people = [
-  { id: "1", name: "Arto Hellas", number: "909249249" },
-  { id: "2", name: "Ada Lovelace", number: "9358385835" },
-  { id: "3", name: "Dan Abramov", number: "2754752528" },
+  { id: "1", name: "Arto Hellas", phone: "909249249" },
+  { id: "2", name: "Ada Lovelace", phone: "9358385835" },
+  { id: "3", name: "Dan Abramov", phone: "2754752528" },
 ];
 
 app.get("/api/people", (request, response) => {
@@ -50,11 +50,11 @@ app.post("/api/people", (request, response) => {
   // console.log(body);
   if (
     body.name === "undefined" ||
-    body.number === "undefined" ||
+    body.phone === "undefined" ||
     body.name === "" ||
-    body.number === ""
+    body.phone === ""
   ) {
-    return response.status(400).json({ error: "Name or number missing." });
+    return response.status(400).json({ error: "Name or phone missing." });
   }
   const nameAlreadyExists = (person) => person.name === body.name;
   if (people.some(nameAlreadyExists)) {
@@ -65,7 +65,7 @@ app.post("/api/people", (request, response) => {
   // console.log(Object.keys(people));
   const person = {
     name: body.name,
-    number: body.number,
+    phone: body.phone,
     id: Math.ceil(Math.random() * 1000).toString(),
   };
 
